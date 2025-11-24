@@ -1,0 +1,46 @@
+// responsive devices
+
+$desktop-lg: "(min-width: 1920px)";
+$macbook: "(min-width: 1367px) and (max-width: 1600px)";
+$windows-laptop: "(min-width: 1201px) and (max-width: 1366px)";
+$tab-lg: "(min-width: 1201px) and (max-width: 1366px) and (min-height: 880px)";
+$tab-landscape: "(max-width: 1200px)";
+$tab-lg-portrait: "(min-width: 1024px) and (max-width: 1200px) and (orientation: portrait)";
+$tab-portrait: "(max-width: 991px)";
+$tab-sm-portrait: "(max-width: 767px)";
+$mobile-lg: "(max-width: 575px)";
+$mobile-sm-portrait: "(max-width: 410px)";
+$iphone-old: "(max-width: 410px) and (max-height: 667px)";
+$android-mobile: "(max-width: 360px)";
+$iphone-vs: "(max-width: 320px)";
+
+
+
+
+// ============ Fonts Variable ============ // 
+
+$primary-font: "Roboto", sans-serif;
+
+
+
+// ============ Color Variable ============ // 
+
+
+$primary-color:#8171de;
+$primary-color-dark:#341efc;
+$content-color:#7e7e7e;
+$heading-color:#0a0a0a;
+$input-bg:rgba(219, 219, 219, 0.14);
+$page-bg: #ffffff;
+$light-bg: #f8fafb ;
+$border-color: #8d857633;
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,63 @@
+
+
+.blog-section {
+
+    main {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .article {
+        flex-basis: 0;
+        flex-grow: 999;
+        min-width: 40%;
+    }
+
+    .sidebar {
+        flex-grow: 1;
+        flex-basis: 440px;
+        align-self: start;
+        position: sticky;
+        top: 160px;
+        margin: 0 0 0 70px;
+
+        @include macbook{
+            flex-basis: 330px;
+            margin: 0 0 0 60px;
+        }
+
+        @include windows-laptop{
+            flex-basis: 330px;
+            margin: 0 0 0 60px;
+        }
+
+        @include tab-landscape {
+            flex-basis: 310px;
+            margin: 0 0 0 30px;
+        }
+
+        @include tab-portrait {
+            flex-basis: 100%;
+            margin: 40px 0 0 0;
+        }
+
+        @include mobile-lg {
+            margin: 30px 0 0 0;
+        }
+
+    }
+
+}
+
+
+.standard-content{
+    figure{
+        margin-bottom: 30px;
+    }
+}
+
+
+// .non-default-ul{
+//     @include lists;
+// }
+

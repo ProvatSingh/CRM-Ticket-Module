@@ -1,0 +1,487 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+html {
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    // scroll-behavior: smooth;
+    // -webkit-overflow-scrolling: touch;
+}
+
+body {
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
+    background: $page-bg;
+    position: relative;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: normal;
+    font-family: $primary-font;
+    color: $content-color;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    color: white;    
+    background: lighten( $primary-color, 10% );
+    opacity: 0.1;
+}
+  
+
+a {
+    text-decoration: none;
+    outline: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+
+
+ul, ol{  
+    margin-bottom: 30px; 
+
+    li{
+        font-size: 20px;
+        line-height: 30px;
+        font-weight: normal;
+        font-family: $primary-font;
+        margin-bottom: 20px;
+        position: relative;
+
+        &::marker{
+            color: $primary-color;
+        }
+
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+
+    &:last-child{
+        margin-bottom: 0;
+    }
+}
+
+ol{
+    li{       
+        list-style: decimal;        
+
+        &::marker{
+            color: $content-color;
+        }
+    }
+}
+
+
+
+h1,.h1,
+h2,.h2,
+h3,.h3,
+h4,.h4,
+h5,.h5,
+h6,.h6 {
+    @include heading;
+}
+
+h1,.h1 {
+    font-size: 44px;
+    line-height: 60px;
+}
+
+
+h2,.h2 {
+    font-size: 44px;
+    line-height: 60px;   
+}
+
+h3,.h3 {
+    font-size: 28px;
+    line-height: 38px;
+}
+
+h4,.h4 {
+    font-size: 24px;
+    line-height: 32px;
+}
+
+h5,.h5 {
+    line-height: 22px;
+    line-height: 28px;
+}
+
+h6,.h6 {
+    line-height: 20px;    
+    line-height: 26px;
+}
+
+
+
+
+p {
+    font-size: 20px;
+    line-height: 34px;
+    font-weight: normal;
+    font-family: $primary-font;
+    color: $content-color;
+    margin-bottom: 30px;
+
+    &:last-child{
+        margin: 0;
+    }
+
+    a {
+        color: $primary-color;
+
+        &:hover {
+            color: $primary-color;
+            text-decoration: underline;
+        }
+    }
+}
+
+
+blockquote {
+    @extend p;
+    padding: 45px 35px 45px 56px;
+    margin-bottom: 30px;
+    max-width: 100%;
+    color: $content-color;
+    position: relative;
+    background: $light-bg;
+
+    @include mobile-lg {
+        padding: 20px 20px 20px 43px;
+        margin-bottom: 20px;
+    }
+
+    &::before{
+        content: "";
+        position: absolute;
+        top: 45px;
+        bottom: 45px;
+        left: 30px;
+        width: 4px;
+        background: $primary-color;
+
+        @include mobile-lg {
+            top: 22px;
+            bottom: 22px;
+            width: 3px;
+            left: 20px;
+        }
+    }
+
+}
+
+
+figure{
+    margin: 0;
+
+    img{
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+section{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+
+
+.container {
+    max-width: 1400px;
+
+    @include macbook{
+        max-width: 1200px;
+    }
+
+    @include windows-laptop{
+        max-width: 1200px;
+    }
+
+    @include tab-landscape{
+        max-width: 960px;
+    }
+
+    @include tab-portrait{
+        max-width: 720px;
+    }
+
+    @include tab-sm-portrait{
+        max-width: 540px;
+    }
+    
+    @include mobile-lg {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.row {
+    margin-left: -20px;
+    margin-right: -20px;
+
+    @include tab-landscape{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+                   
+    @include tab-portrait{
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+
+    &>[class*=col] {
+        padding-left: 20px;
+        padding-right: 20px;
+
+        @include tab-landscape{
+            padding-left: 15px;
+            padding-right: 15px;
+        } 
+
+        @include tab-portrait{
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+}
+
+
+.main-wrapper{
+    padding-top: 144px;
+
+    @include tab-landscape {
+       
+    }
+
+    @include tab-sm-portrait {
+      
+    }
+    
+    @include mobile-lg{
+       
+    }
+
+ 
+}
+
+
+
+
+
+img.alignright {float:right; margin:0 0 1em 1em}
+img.alignleft {float:left; margin:0 1em 1em 0}
+img.aligncenter {display: block; margin-left: auto; margin-right: auto; }
+a img.alignright {float:right; margin:0 0 1em 1em}
+a img.alignleft {float:left; margin:0 1em 1em 0}
+a img.aligncenter {display: block; margin-left: auto; margin-right: auto; }
+
+// admin bar css
+
+.logged-in {
+    header{
+        top: 32px !important;
+    }
+}
+
+@media all and (max-width: 782px) {
+    .logged-in {
+        header{
+            top: 46px !important;
+        }
+    }
+}
+
+@media all and (max-width: 601px) {
+    .logged-in {
+        margin-top: -46px !important;
+
+        header{
+            position: absolute;
+        }
+
+        .main-wrapper{
+            margin-top: 0px !important;
+        }
+    }
+}
+
+
+
+//================================== TABLE
+
+
+.table-responsive{
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid $border-color;
+}
+
+table,.table{
+    width: 100%;
+    margin-bottom: 0;
+    // border-spacing: 0px 6px ;
+    // border-radius: 6px 6px ;
+
+    thead{
+
+        tr{
+            background-color: white !important;
+
+
+
+            th{
+                font-size: 16px;
+                line-height: 22px;
+                font-weight: 600;
+                letter-spacing: -0.01em;
+                color:$primary-color;
+                padding:18px 20px;
+                 padding: 20px; 
+
+                @include mobile-lg{
+                    padding: 14px;
+                }
+                
+            }            
+        }
+    }
+
+    tr{
+        
+        &:nth-of-type(odd){
+            background-color: $light-bg;
+        }
+
+        &:nth-of-type(even){
+            background-color: white;
+        }
+        &:last-child{
+            td{
+                border-bottom: 0;
+            }
+        }
+        td{
+            font-size: 15px;
+            line-height: 16px;
+            font-weight: 500;
+            letter-spacing: -0.015em;
+            color: $heading-color;
+            padding: 20px;      
+            
+            a{
+                color: $primary-color;
+
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+
+        }
+    }
+}
+
+//================================== pagination
+
+.pagination-wrapper{
+
+    .pagination{
+        margin-bottom: 0;
+    }
+
+    .page-link{
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: $content-color;
+        min-width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background: white;
+        border-radius: 8px;
+        margin-right: 10px;
+        padding: 0 16px;  
+        border: 0;  
+        
+        &:hover{
+            background-color: $primary-color;
+            color: white;
+        }
+        
+    }
+
+    .page-item.active .page-link{
+        background: $primary-color;
+    }
+
+    .page-link:focus {
+        z-index: 3;
+        box-shadow: none;
+        outline: 0;
+    }  
+    
+    .page-item:first-child .page-link{
+        padding:0 20px;
+        border-radius: 8px;
+        margin-right: 16px;
+        background-color: $content-color;
+        color: white;
+        &:hover{
+            background-color:$primary-color;
+        }
+
+        @include tab-sm-portrait{
+            font-size: 0px !important;
+            width: 40px;
+            height: 40px;
+            padding: 0 !important;
+            background: $content-color url(../images/icons/icon-previous-arrow.svg) no-repeat center / contain;
+            background-size: 13px 13px;
+        }
+        
+    }
+
+    .page-item:last-child .page-link{
+        padding:0 20px;
+        border-radius: 8px;
+        margin-left: 6px;
+        margin-right: 0;
+        background-color: $content-color;
+        color: white;
+
+        &:hover{
+            background-color:$primary-color;
+        }
+
+        @include tab-sm-portrait{
+            font-size: 0px !important;
+            width: 40px;
+            height: 40px;
+            padding: 0 !important;
+            background: $content-color url(../images/icons/icon-previous-arrow.svg) no-repeat center / contain;
+            background-size: 13px 13px;
+            transform: rotate(-180deg);
+        }
+        
+    }
+
+    .page-item.disabled .page-link{
+        opacity: 0.6;
+        
+    }
+
+    
+}
