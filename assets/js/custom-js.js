@@ -1,8 +1,8 @@
 
 // ====== Hamburger Menu Click Js ====== //
 
-const hamburger = document.getElementById("hamburger_menu"); 
-hamburger.addEventListener('click', function() { 
+const hamburger = document.getElementById("hamburger_menu");
+hamburger.addEventListener('click', function () {
     var element1 = document.getElementById("collapse_menu");
     var element2 = document.getElementById("menu_overlay");
     var element3 = document.getElementById("body");
@@ -13,8 +13,8 @@ hamburger.addEventListener('click', function() {
 
 // ====== Menu Overlay Click Js ====== //
 
-const menuoverlay = document.getElementById("menu_overlay"); 
-menuoverlay.addEventListener('click', function() { 
+const menuoverlay = document.getElementById("menu_overlay");
+menuoverlay.addEventListener('click', function () {
     var element4 = document.getElementById("collapse_menu");
     var element5 = document.getElementById("menu_overlay");
     var element6 = document.getElementById("body");
@@ -25,8 +25,8 @@ menuoverlay.addEventListener('click', function() {
 
 // ====== Menu Close Click Js ====== //
 
-const menuclose = document.getElementById("colapse_close"); 
-menuclose.addEventListener('click', function() { 
+const menuclose = document.getElementById("colapse_close");
+menuclose.addEventListener('click', function () {
     var element7 = document.getElementById("collapse_menu");
     var element8 = document.getElementById("menu_overlay");
     var element9 = document.getElementById("body");
@@ -47,43 +47,66 @@ const header_height = header.offsetHeight
 const add_class_on_scroll = () => header.classList.add("dark")
 const remove_class_on_scroll = () => header.classList.remove("dark")
 
-window.addEventListener('scroll', function() { 
+window.addEventListener('scroll', function () {
     scrollpos = window.scrollY;
 
     if (scrollpos >= header_height) { add_class_on_scroll() }
     else { remove_class_on_scroll() }
 
     // console.log(scrollpos)
-    
+
 })
 
+jQuery(document).ready(function ($) {
 
+    
+    // ================== Dropdown
 
-/// ================= Home Page Game Library Slider
+    if ($(window).width() < 1279) {
+        $(function () {
+            $('#myUL li').click(function (e) {
+                e.stopPropagation();
+                $(this).children('ul').stop().slideToggle(400);
+            });
+        });
+    } else {
+        $('#myUL li').hover(function () {
+            $(this).children('ul').stop().slideToggle(400);
+        });
+    }
 
-var doorsteploan = new Swiper('#doorstep-loan-slider', {
-
-    slidesPerView: 1,
-    spaceBetween: 30,
-    pagination: false,
-    loop: true,
-    // autoHeight: true, 
-    preventClicks: false,
-    preventClicksPropagation: false,
-    shortSwipes: false,
-
-    // autoplay: {
-    //     delay: 2000,
-    //     disableOnInteraction: false,
-    // },
-
-    navigation: {
-        nextEl: '.doorstep-loan-next',
-        prevEl: '.doorstep-loan-prev',
-    },
 
 });
 
 
-// =======================
 
+
+if (document.getElementById("select-beast")) {
+    new TomSelect("#select-beast", {
+        plugins: {
+            remove_button: {
+                title: 'Remove this item',
+            }
+        },
+        onDelete: function (values) {
+            return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
+        },
+        persist: false,
+        create: false,
+        maxItems: 10,
+        sortField: {
+            field: "text",
+            direction: "asc"
+        }
+    });
+}
+
+
+
+new DataTable('table.my-created-tk',{
+    responsive: true
+});
+
+new DataTable('table.my-assigned-tk',{
+    responsive: true
+});

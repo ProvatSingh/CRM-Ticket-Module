@@ -1,3 +1,60 @@
-.sec-head{
-    margin-bottom: 30px;
+.sec-head {
+  margin-bottom: 30px;
+}
+
+.ticket-list-tab {
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  li {
+    > div {
+      font-size: 18px;
+      font-weight: 500;
+      color: $heading-color;
+      padding: 10px 20px;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      background: $input-bg;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.active,
+      &:hover {
+        border-color: $primary-color-dark;
+        background: $primary-color-dark;
+        color: #fff;
+      }
+    }
+  }
+}
+
+
+.stat-box-wpr{
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.stat-box{
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 20px 30px;
+  min-width: 23%;
+}
+
+.table-action-links{
+  display: flex;
+  gap: 4px;
+}
+
+.my-created-tk-delt{
+  background:transparent;
+  border: none;
+  color: $primary-color;
+  display: inline-block;
+
+  &:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }

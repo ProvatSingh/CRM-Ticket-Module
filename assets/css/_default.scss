@@ -278,7 +278,18 @@ section{
 }
 
 
-
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: $content-color;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: $content-color;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: $content-color;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: $content-color;
+}
 
 
 img.alignright {float:right; margin:0 0 1em 1em}
@@ -319,79 +330,6 @@ a img.aligncenter {display: block; margin-left: auto; margin-right: auto; }
 }
 
 
-
-//================================== TABLE
-
-
-.table-responsive{
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid $border-color;
-}
-
-table,.table{
-    width: 100%;
-    margin-bottom: 0;
-    // border-spacing: 0px 6px ;
-    // border-radius: 6px 6px ;
-
-    thead{
-
-        tr{
-            background-color: white !important;
-
-
-
-            th{
-                font-size: 16px;
-                line-height: 22px;
-                font-weight: 600;
-                letter-spacing: -0.01em;
-                color:$primary-color;
-                padding:18px 20px;
-                 padding: 20px; 
-
-                @include mobile-lg{
-                    padding: 14px;
-                }
-                
-            }            
-        }
-    }
-
-    tr{
-        
-        &:nth-of-type(odd){
-            background-color: $light-bg;
-        }
-
-        &:nth-of-type(even){
-            background-color: white;
-        }
-        &:last-child{
-            td{
-                border-bottom: 0;
-            }
-        }
-        td{
-            font-size: 15px;
-            line-height: 16px;
-            font-weight: 500;
-            letter-spacing: -0.015em;
-            color: $heading-color;
-            padding: 20px;      
-            
-            a{
-                color: $primary-color;
-
-                &:hover{
-                    text-decoration: underline;
-                }
-            }
-
-        }
-    }
-}
 
 //================================== pagination
 

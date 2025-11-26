@@ -133,7 +133,7 @@
         font-family: $primary-font;
         letter-spacing: 0.3em;
         text-transform: uppercase;
-        color: $content-color;
+        color: $heading-color;
         display: block;
         text-align: center;
         padding: 0;
@@ -240,7 +240,7 @@
         font-size: 13px;
         line-height: 20px;
         letter-spacing: 0.2em;
-        color: $primary-color-dark;
+        color: $heading-color;
         padding: 0;
         display: block;
         text-align: left;
@@ -303,7 +303,7 @@
 
   &::after {
     content: "";
-    background: url(../images/btn-down-arrow.svg) no-repeat center / contain;
+    background: url(../images/caret-down.svg) no-repeat center / contain;
     width: 15px;
     height: 8px;
     position: absolute;
@@ -682,7 +682,7 @@
   width: 20px;
   height: 22px;
   cursor: pointer;
-  background: url(../images/nav-search-icon.svg) no-repeat center / 20px;
+  // background: url(../images/nav-search-icon.svg) no-repeat center / 20px;
 
   @include macbook {
     margin-left: 20px;

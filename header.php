@@ -6,11 +6,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-       <title> CRM Ticket Module</title>
+    <title> CRM Ticket Module</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/CRM-Ticket-Module/assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/CRM-Ticket-Module/assets/css/tom-select.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.min.css"> -->
+    <link rel="stylesheet" href="/CRM-Ticket-Module/assets/css/main.css">
 </head>
 
 <body>
@@ -20,7 +24,7 @@
 
             <nav class="navbar d-flex">
                 <a class="navbar-brand" href="/CRM-Ticket-Module/index.php">
-                   CRM Ticket Module
+                    CRM Ticket Module
                 </a>
 
                 <div class="menu-overlay" id="menu_overlay"></div>
@@ -29,7 +33,7 @@
 
                     <div class="responsive-logo">
                         <a href="/CRM-Ticket-Module/index.php">
-                            <img class="logo-desktop" src="images/logo.svg" alt="logo">
+                            <!-- <img class="logo-desktop" src="images/logo.svg" alt="logo"> -->
                         </a>
                     </div>
 
@@ -39,18 +43,15 @@
 
                                 <li class=""><a href="/CRM-Ticket-Module/index.php">Home</a></li>
                                 <li class=""><a href="/CRM-Ticket-Module/tickets/create.php">Create Ticket</a></li>
-                                <li class=""><a href="/CRM-Ticket-Module/tickets/list.php">my tickets</a></li>
-                                <li class=""><a href="/CRM-Ticket-Module/auth/logout.php">Logout</a></li>
-                                <!-- <li class="menu-item-has-children">
-                                    <a href="javascript:void(0);">businesses</a>
+                                <li class="menu-item-has-children">
+                                    <a href="javascript:void(0);">my tickets</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Business Link</a></li>
-                                        <li><a href="#">Contact Us</a></li>
-                                        <li><a href="single-article.php">single article</a></li>
-                                        <li><a href="#">Vitae in sit</a></li>
-                                        <li><a href="#">Ante pellentesque</a></li>
+                                        <li><a href="/CRM-Ticket-Module/tickets/created-list.php">Created tickets</a></li>
+                                        <li><a href="/CRM-Ticket-Module/tickets/assigned-list.php">Assigned tickets</a></li>
+                           
                                     </ul>
-                                </li> -->
+                                </li>
+                                <li class=""><a href="/CRM-Ticket-Module/auth/logout.php">Logout</a></li>
                                 <!-- <li class=""><a href="#">investments</a></li>
                                 <li class=""><a href="#">achievements</a></li>
                                 <li class=""><a href="#">inspirations</a></li>
@@ -61,7 +62,7 @@
 
 
                         <div class="colapse-close" id="colapse_close">
-                            <img src="images/collapse-close-icon.svg" alt="">
+                            <!-- <img src="images/collapse-close-icon.svg" alt=""> -->
                         </div>
 
 

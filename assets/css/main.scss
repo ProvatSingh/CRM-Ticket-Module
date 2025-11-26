@@ -7,12 +7,9 @@
 @import "_footer.scss";
 @import "_single-article.scss";
 @import "_login.scss";
-@import "_components.scss";
+@import "_components.scss"; 
+@import "_table.scss";
 
-.box {
-    width: 24%;
-
-}
 
 .dashboard {
     justify-content: space-between;
