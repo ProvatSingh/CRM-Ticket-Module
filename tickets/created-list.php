@@ -5,18 +5,48 @@
 $userId=$_SESSION['user_id'];
 $myCrTickets = $conn->query("SELECT * FROM tickets WHERE created_by=$userId");
 $myAsnTickets = $conn->query("SELECT * FROM tickets WHERE FIND_IN_SET($userId, assigned_to)");
-$users = $conn->query("SELECT * FROM users WHERE id=$userId");
 $tickets=[];
 
+// Fetch created tickets start
 if($myCrTickets->num_rows > 0){
     while($items = $myCrTickets->fetch_assoc()){
         $tickets[]=$items;
     };
 };
+// Fetch created tickets end
 
-if($users->num_rows > 0){
-    $userRow = $users->fetch_assoc();
+// assign id convert to assigned names start
+foreach ($tickets as $ticket) { 
+     $assigneIds = explode(",", $ticket["assigned_to"]);  
+    $names = [];
+    foreach ($assigneIds as $id) {
+        $result = $conn->query("SELECT name FROM users WHERE id=$id");
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $names[] = $row["name"];
+        }
+    }
 }
+// assign id convert to assigned names end
+
+// Delete function start
+if (isset($_POST['delete'])) {
+    $id = $_POST['id'];
+    $sql = "DELETE FROM tickets WHERE id = $id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Record deleted successfully.";
+        header("Location: created-list.php");
+        exit();
+    } else {
+        echo "Error deleting record: " . $conn->error;
+    }
+
+    $conn->close();
+}
+// Delete function end
+
+
 ?>
 
 
@@ -46,27 +76,29 @@ if($users->num_rows > 0){
                         <td><?= $ticket["status"]; ?></td>
                         <td><?= $_SESSION['user_name']; ?></td>
                         <td><?= $ticket["created_at"]; ?></td>
-                        <td><?php 
-                                    $assigneIds = explode(",", $ticket["assigned_to"]);  
-                                    $names = [];
-
-                                    foreach ($assigneIds as $id) {
-                                        $result = $conn->query("SELECT name FROM users WHERE id=$id");
-                                        if ($result && $result->num_rows > 0) {
-                                            $row = $result->fetch_assoc();
-                                            $names[] = $row["name"];
-                                        }
-                                    }
-                                    echo implode(", ", $names);
-                                    ?></td>
-                        <td class="table-action-links">
-                            <a href="view.php?id=<?= $ticket['id']; ?>" data-bs-toggle="offcanvas"
-                                data-bs-target="#edit-created-ticket" aria-controls="edit-created-ticket">View</a> |
-                            <a href="edit.php?id=<?= $ticket['id']; ?>">Edit</a>|
-                            <form action="delete.php" method="POST" onsubmit="return confirm('Delete this item?');">
-                                <input type="hidden" name="id" value="<?= $ticket['id'] ?>">
-                                <button class="my-created-tk-delt" type="submit" name="delete">Delete</button>
-                            </form>
+                        <td><?php echo implode(", ", $names); ?></td>
+                        <td>
+                            <div class="table-action">
+                                <div class="table-action-btn view-ticket" data-id="<?= $ticket['id']; ?>"
+                                    data-name="<?= $ticket['name']; ?>"
+                                    data-description="<?= $ticket['description']; ?>"
+                                    data-status="<?= $ticket['status']; ?>" data-file="<?= $ticket['file']; ?>"
+                                    data-created-by="<?= $_SESSION['user_name'] ?>"
+                                    data-assigned="<?=  implode(", ", $names); ?>"
+                                    data-created="<?= $ticket['created_at']; ?>"
+                                    data-updated="<?= $ticket['updated_at']; ?>"
+                                    data-completed="<?= $ticket['completed_at']; ?>"
+                                    data-deleted="<?= $ticket['deleted_at']; ?>" data-bs-toggle="offcanvas"
+                                    data-bs-target="#edit-created-ticket" aria-controls="edit-created-ticket">
+                                    View
+                                </div> |
+                                <a href="edit.php?id=<?= $ticket['id']; ?> " class="table-action-btn">Edit</a>|
+                                <form  method="POST"
+                                    onsubmit="return confirm('Are You Sure To Delete <?= $ticket['id']; ?> ?');">
+                                    <input type="hidden" name="id" value="<?= $ticket['id'] ?>">
+                                    <button class="table-action-btn" type="submit" name="delete">Delete</button>
+                                </form>
+                            </div>
                         </td>
 
                     </tr>
@@ -81,53 +113,3 @@ if($users->num_rows > 0){
 </div>
 <?php include "../footer.php" ?>
 
-<!-- <div class="offcanvas  offcanvas-end" tabindex="-1" id="edit-created-ticket" aria-labelledby="edit-created-ticketLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="edit-created-ticketLabel">Tickets Id: <?= $ticket["id"]; ?></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <div class="default-form">
-            <form action="create-list.php" method="POST" enctype="multipart/form-data">
-                <div class="input-wpr">
-                    <label class="form-label">Ticket Name</label>
-                    <input type="text" value="<?= $ticket["name"]; ?>" name="ticket-name" value
-                        placeholder="Enter ticket name" required>
-                </div>
-
-                <div class="input-wpr">
-                    <label class="form-label">Description</label>
-                    <textarea name="ticket-description" rows="4" placeholder="Enter ticket description"
-                        required><?= $ticket["description"]; ?></textarea>
-                </div>
-
-                <div class="input-wpr"><label class="form-label">Attach File</label>
-                    <input name="fileToUpload" value="" id="fileToUpload" type="file">
-                </div>
-                <div class="input-wpr"> <label class="form-label">Assign To</label>
-
-                    <select id="select-beast" name="ticket-assignee[]" autocomplete="off" required multiple>
-                        <option value="<?= $ticket["name"]; ?>" disabled selected><?= $ticket["name"]; ?></option>
-                        <?php 
-                                if($$myAsnTickets->num_rows>0){
-                                    foreach($users as $user){
-                                        echo "<option value='" .$user['id']."'>" .$user['name']."</option>";
-                                    }
-                                } 
-                            ?>
-
-
-                    </select>
-                </div>
-
-                <div class="submit-wpr">
-                    <button type="submit" class="btn btn-primary">Create Ticket</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="offcanvas-footer">
-        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">close</button>
-    </div>
-</div> -->

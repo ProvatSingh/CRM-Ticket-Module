@@ -40,7 +40,7 @@ table.dataTable {
         color: $primary-color-dark;
         padding: 18px 20px;
         padding: 20px;
-
+        vertical-align: middle;
         @include mobile-lg {
           padding: 14px;
         }
@@ -68,7 +68,7 @@ table.dataTable {
       letter-spacing: -0.015em;
       color: $heading-color;
       padding: 20px;
-
+      vertical-align: middle;
       a {
         color: $primary-color;
 
@@ -86,7 +86,6 @@ table.dataTable > tbody > tr > td {
 // table-action
 .dt-container {
   .dt-layout-row {
-
     &:first-child {
       display: flex;
       justify-content: space-between;
@@ -186,4 +185,31 @@ div.dt-container .dt-paging {
 .dt-paging-button.last {
   font-size: 18px;
   font-weight: 600;
+}
+
+table select {
+  background-position: right 8px center;
+  padding: 5px 10px 5px 5px;
+  height: auto;
+  border-radius: 0;
+  font-size: 15px;
+  text-transform: capitalize;
+  background-size: 9px;
+}
+
+.table-action {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  .table-action-btn{
+    background:transparent;
+  border: none;
+  color: $primary-color;
+  display: inline-block;
+
+  &:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  } 
 }

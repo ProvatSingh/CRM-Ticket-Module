@@ -66,7 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     </form>
 
                     <?php if(!empty($message)) {
-                        echo "<div class='alert alert-danger'>$message</div>";
+                        echo "<div class='alert alert-danger mt-3'>$message</div>";
                     } ?>
                 </div>
 

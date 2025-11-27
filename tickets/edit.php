@@ -5,6 +5,8 @@ $id =  $_GET['id'];
 $users = $conn->query("SELECT * FROM users");
 $ticket = $conn->query("SELECT * FROM tickets WHERE id=$id")->fetch_assoc();
 
+echo var_dump($ticket['status']);
+
 // Security: Only author or assignee can edit
 if ($ticket['created_by'] != $_SESSION['user_id']) {
     die("You are not allowed to edit this ticket");
@@ -17,29 +19,28 @@ $assignedUsers = explode(",", $ticket['assigned_to']);
 
 <?php
 if (isset($_POST['update'])) {
-
     $name = $_POST['name'];
     $desc = $_POST['description'];
-    // $status = $_POST['status'];
-
-    $ticketAssigneeArray = $_POST['ticket-assignee']; // array
-    $assigned_to = implode(",", $ticketAssigneeArray); // convert to string
+    $status = $_POST['status'];
+    $ticketAssigneeArray = $_POST['ticket-assignee']; 
+    $assigned_to = implode(",", $ticketAssigneeArray); 
 
     // File upload
     $filePath = $ticket['file']; // old file
+
     if (!empty($_FILES['ticket_file']['name'])) {
-        $filePath = "uploads/" . time() . "_" . $_FILES['ticket_file']['name'];
+        $filePath = "../uploads/" . time() . "_" . $_FILES['ticket_file']['name'];
         move_uploaded_file($_FILES['ticket_file']['tmp_name'], $filePath);
     }
 
-    $query = "UPDATE tickets SET 
+    $query = "UPDATE tickets SET     
                 name='$name',
                 description='$desc',
-                -- status='$status',
+                status='$status',
                 assigned_to='$assigned_to',
                 file='$filePath',
                 updated_at=NOW()
-              WHERE id=$id";
+                WHERE id=$id";
 
     if ($conn->query($query)) {
         echo "<script>alert('Updated!');</script>";
@@ -65,16 +66,14 @@ if (isset($_POST['update'])) {
 
                         <label>Description</label>
                         <textarea name="description" required><?= $ticket['description'] ?></textarea>
-
-                        <label>Status</label>
-                        <select name="status" required>
-                            <option <?= $ticket['status']=="open"?'selected':'' ?>>Open</option>
-                            <option <?= $ticket['status']=="pending"?'selected':'' ?>>pending</option>
-                            <option <?= $ticket['status']=="inprogress"?'selected':'' ?>>inprogress</option>
-                            <option <?= $ticket['status']=="completed"?'selected':'' ?>>completed</option>
-                            <option <?= $ticket['status']=="onhold"?'selected':'' ?>>onhold</option>
-                        </select>
                     </div>
+                    <select name="status"  hidden>
+                        <option <?= $ticket['status']=="open"?'selected':'' ?>>Open</option>
+                        <option <?= $ticket['status']=="pending"?'selected':'' ?>>pending</option>
+                        <option <?= $ticket['status']=="inprogress"?'selected':'' ?>>inprogress</option>
+                        <option <?= $ticket['status']=="completed"?'selected':'' ?>>completed</option>
+                        <option <?= $ticket['status']=="onhold"?'selected':'' ?>>onhold</option>
+                    </select>
                     <div class="input-wpr">
                         <label class="form-label">Assign To</label>
                         <select id="select-beast" name="ticket-assignee[]" autocomplete="off" required multiple>
@@ -89,10 +88,18 @@ if (isset($_POST['update'])) {
                             ?>
                         </select>
                     </div>
-                   
-                    <div class="input-wpr">
-                        <label>File (optional)</label>
-                        <input type="file" name="ticket_file">
+
+                    <!-- <div class="input-wpr">
+                        <label>File </label>
+                        <input type="file"  value="c:/passwords.txt">
+                    </div> -->
+
+                    <div class="input-wpr file-upload-wpr"><label class="form-label">Attach File</label>
+                        <input name="ticket_file" class="file-upload-fld" type="file" >
+
+                        <div class="file-upload-preview">
+                            <img src="" alt="" id="blah">
+                        </div>
                     </div>
                     <div class="submit-wpr">
                         <button type="submit" class="btn" name="update">Update Ticket</button>

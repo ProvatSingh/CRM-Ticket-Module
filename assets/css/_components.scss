@@ -29,32 +29,57 @@
   }
 }
 
-
-.stat-box-wpr{
+.stat-box-wpr {
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
 }
-.stat-box{
+.stat-box {
   border: 1px solid $border-color;
   border-radius: 8px;
   padding: 20px 30px;
   min-width: 23%;
 }
 
-.table-action-links{
-  display: flex;
-  gap: 4px;
+.offcanvas {
+  max-width: 800px;
+  width: 100% !important;
+
+  .offcanvas-title {
+    p {
+      display: inline-block;
+      font-size: inherit;
+    }
+  }
+
+  .offcanvas-header {
+    border-bottom: 1px solid $border-color;
+  }
+
+  .offcanvas-footer {
+    border-top: 1px solid $border-color;
+  }
+  .offcanvas-header,
+  .offcanvas-footer {
+    padding: 20px;
+  }
+
+  .offcanvas-body {
+    padding: 30px 20px;
+  }
 }
 
-.my-created-tk-delt{
-  background:transparent;
-  border: none;
-  color: $primary-color;
-  display: inline-block;
+.ticket-details-view {
+  .row {
+    --bs-gutter-y: 30px;
+  }
+}
 
-  &:hover{
-    text-decoration: underline;
-    cursor: pointer;
+.file-upload-wpr {
+  .file-upload-preview {
+    margin-top: 10px;
+    img {
+      max-width: 300px;
+    }
   }
 }

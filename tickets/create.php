@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <div class="main-wrapper">
-    
+
     <section class="create-ticket-sec py-0">
         <div class="container">
             <div class="sec-head">
@@ -56,20 +56,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             required></textarea>
                     </div>
 
-                    <div class="input-wpr"><label class="form-label">Attach File</label>
-                        <input name="fileToUpload" id="fileToUpload" type="file">
+                    <div class="input-wpr file-upload-wpr"><label class="form-label">Attach File</label>
+                        <input name="fileToUpload" class="file-upload-fld" type="file" >
+
+                        <div class="file-upload-preview">
+                            <img src="" alt="" id="blah">
+                        </div>
                     </div>
                     <div class="input-wpr"> <label class="form-label">Assign To</label>
 
                         <select id="select-beast" name="ticket-assignee[]" autocomplete="off" required multiple>
                             <option value="" disabled selected>Select Assignee</option>
                             <?php 
-                            if($users->num_rows>0){
-                                foreach($users as $user){
-                                    echo "<option value='" .$user['id']."'>" .$user['name']."</option>";
-                                }
-                            } 
-                        ?>
+                                if($users->num_rows>0){
+                                    foreach($users as $user){
+                                        echo "<option value='" .$user['id']."'>" .$user['name']."</option>";
+                                    }
+                                } 
+                            ?>
 
 
                         </select>
@@ -86,19 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 </div>
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle right offcanvas</button>
 
-<div class="offcanvas  offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        ...
-    </div>
 
-     <div class="offcanvas-footer">
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-</div>
+
 <?php include "../footer.php" ?>

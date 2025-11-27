@@ -55,11 +55,11 @@ window.addEventListener('scroll', function () {
 
     // console.log(scrollpos)
 
-})
+});
 
+// header submenu start
 jQuery(document).ready(function ($) {
 
-    
     // ================== Dropdown
 
     if ($(window).width() < 1279) {
@@ -77,10 +77,9 @@ jQuery(document).ready(function ($) {
 
 
 });
+// header submenu end
 
-
-
-
+// tom select init start
 if (document.getElementById("select-beast")) {
     new TomSelect("#select-beast", {
         plugins: {
@@ -100,13 +99,58 @@ if (document.getElementById("select-beast")) {
         }
     });
 }
+// tom select init end
 
-
-
-new DataTable('table.my-created-tk',{
+// data table init start
+new DataTable('table.my-created-tk', {
     responsive: true
 });
 
-new DataTable('table.my-assigned-tk',{
+new DataTable('table.my-assigned-tk', {
     responsive: true
 });
+// data table init end
+
+// view table data to offcanvas start
+document.addEventListener("DOMContentLoaded", function () {
+    if (document.querySelectorAll(".view-ticket").length > 0) {
+
+        document.querySelectorAll(".view-ticket").forEach(btn => {
+            btn.addEventListener("click", function () {
+                document.getElementById("oc-id").textContent = this.dataset.id;
+                document.getElementById("oc-name").textContent = this.dataset.name;
+                document.getElementById("oc-description").textContent = this.dataset.description;
+                document.getElementById("oc-status").textContent = this.dataset.status;
+                console.log(this.dataset.file);
+                
+              document.querySelector("#oc-file img").src = this.dataset.file;
+                document.getElementById("oc-created-by").textContent = this.dataset.createdBy;
+                document.getElementById("oc-assigned").textContent = this.dataset.assigned;
+                document.getElementById("oc-created").textContent = this.dataset.created;
+                document.getElementById("oc-updated").textContent = this.dataset.updated;
+                // document.getElementById("oc-completed").textContent = this.dataset.completed;
+                // document.getElementById("oc-deleted").textContent = this.dataset.deleted;
+
+            });
+        });
+    }
+});
+// view table data to offcanvas end
+
+// file preview js start
+let file_upload_wpr = document.querySelectorAll('.file-upload-wpr');
+console.log(file_upload_wpr);
+if (file_upload_wpr.length > 0) {
+    
+    file_upload_wpr.forEach((item)=> {
+      item.querySelector('.file-upload-fld').onchange = evt => {
+            const [file] = evt.target.files;
+            console.log([file]);
+            if (file) {
+                item.querySelector('.file-upload-preview img').src = URL.createObjectURL(file);
+            };
+        };
+    })
+}
+// file preview js end
+
