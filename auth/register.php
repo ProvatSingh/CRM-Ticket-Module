@@ -1,19 +1,21 @@
 <?php session_start();
     if(isset($_SESSION['user_id'])){
-        header("location: /CRM-Ticket-Module/index.php");
+        header("location:https://crm-ticket-module.fwh.is/index.php");
         exit;
     };
 ?>
-<?php $message =""; include "../config/db.php"; ?>
+<?php $email_exist = false; $message =""; include "../config/db.php"; ?>
 
 
-<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_name = $_POST["user-name"];
     $user_email = $_POST["user-email"];
     $user_password = password_hash($_POST["user-password"], PASSWORD_DEFAULT);
     $exist_email = $conn->query("SELECT * FROM users where email='$user_email'");
     if ($exist_email->num_rows > 0) {
-        echo "Email already exist";
+        $email_exist = true;
     } else {
         $insert_user = "INSERT INTO users (name, email, password)
         VALUES('$user_name','$user_email','$user_password')";
@@ -22,7 +24,7 @@
             $_SESSION['user_id'] = $conn->insert_id;
             $_SESSION['user_name'] = $user_name;
             $message = true;
-            header("location: /CRM-Ticket-Module/index.php");
+            header("location: https://crm-ticket-module.fwh.is/index.php");
 
         } else {
             echo $conn->error;
@@ -43,7 +45,8 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="/CRM-Ticket-Module/assets/css/main.css" />
+     <link rel="stylesheet" href="https://crm-ticket-module.fwh.is/assets/css/main.css">
+
 </head>
 
 <body>
@@ -64,12 +67,15 @@
                         <div class="input-wpr">
                             <label>Email</label>
                             <input type="email" name="user-email" required />
+                            <?php if ($email_exist) {
+                                echo "<p class='text-danger mt-1 mb-0'>Email already exist</p>";
+                            } ?>
                         </div>
                         <div class="input-wpr">
                             <label>Password</label>
                             <input type="password" name="user-password" required />
                         </div>
-                        
+
                         <div class="submit-wpr">
                             <button class="btn w-100" type="submit">Register</button>
                         </div>
@@ -78,9 +84,9 @@
                     <?php if(!empty($message)) {
                         echo $message ?  "<div class='alert alert-danger'>sucess</div>" :   "<div class='alert alert-danger'>danger</div>"
                     ; } ?>
-                    
+
                 </div>
-                 <div class="register-link text-center mt-4">
+                <div class="register-link text-center mt-4">
                     <p>Already have an account? <a href="login.php">Login Here</a></p>
                 </div>
             </div>

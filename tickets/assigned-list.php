@@ -14,24 +14,6 @@ if($myCrTickets->num_rows > 0){
     };
 };
 
-// if($users->num_rows > 0){
-//     $userRow = $users->fetch_assoc();
-// }
-
-// assign names to assigned tickets
-foreach ($myAsnTickets as $ticket) {
- $assigneIds = explode(",", $ticket["assigned_to"]);  
-    $assignedNames = [];
-
-    foreach ($assigneIds as $id) {
-        $result = $conn->query("SELECT name FROM users WHERE id = $id");
-
-        if ($result && $result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $assignedNames[] = $row["name"];
-        }
-    }
-}
 
 // If update button pressed
 if (isset($_POST['update'])) {
@@ -41,18 +23,6 @@ if (isset($_POST['update'])) {
     header("Location: assigned-list.php");
 }
 
-foreach ($myAsnTickets as $ticket) {
- $assigneIds = explode(",", $ticket["assigned_to"]);  
-    $assignedNames = [];
-
-    foreach ($assigneIds as $id) {
-        $result = $conn->query("SELECT name FROM users WHERE id = $id");
-
-        if ($result && $result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $assignedNames[] = $row["name"];
-        }
-    }}
 
 ?>
 
@@ -88,7 +58,17 @@ foreach ($myAsnTickets as $ticket) {
                             </select></td>
                         <td><?= $_SESSION['user_name']; ?></td>
                         <td><?= $ticket["created_at"]; ?></td>
-                        <td><?php echo implode(", ", $assignedNames);?></td>
+                        <td><?php  $assigneIds = explode(",", $ticket["assigned_to"]);  
+                            $assignedNames = [];
+
+                            foreach ($assigneIds as $id) {
+                                $result = $conn->query("SELECT name FROM users WHERE id = $id");
+
+                                if ($result && $result->num_rows > 0) {
+                                    $row = $result->fetch_assoc();
+                                    $assignedNames[] = $row["name"];
+                                }
+                            }echo implode(", ", $assignedNames);?></td>
                         <td>
                             <div class="table-action">
 

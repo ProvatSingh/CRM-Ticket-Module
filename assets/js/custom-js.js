@@ -121,9 +121,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("oc-name").textContent = this.dataset.name;
                 document.getElementById("oc-description").textContent = this.dataset.description;
                 document.getElementById("oc-status").textContent = this.dataset.status;
-                console.log(this.dataset.file);
+               if(this.dataset.file === ""){
+                    document.querySelector("#oc-file").innerHTML = "No File Uploaded";
+                } else {
+                       document.querySelector("#oc-file img").src = "https://crm-ticket-module.fwh.is/uploads/" + this.dataset.file;
+                }
                 
-              document.querySelector("#oc-file img").src = this.dataset.file;
+           
                 document.getElementById("oc-created-by").textContent = this.dataset.createdBy;
                 document.getElementById("oc-assigned").textContent = this.dataset.assigned;
                 document.getElementById("oc-created").textContent = this.dataset.created;

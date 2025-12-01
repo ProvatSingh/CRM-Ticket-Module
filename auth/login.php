@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 include "../config/db.php";
 
@@ -13,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         if(password_verify($user_password, $row['password'])){
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['user_name'] = $row['name'];
-            header("Location: /CRM-Ticket-Module/index.php");
+            header("Location: ../index.php");
             exit;
         } else {
             $message = "Incorrect password";
@@ -33,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/CRM-Ticket-Module/assets/css/main.css">
+    <link rel="stylesheet" href="https://crm-ticket-module.fwh.is/assets/css/main.css">
 </head>
 
 

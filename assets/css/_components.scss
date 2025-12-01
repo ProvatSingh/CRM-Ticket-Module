@@ -66,6 +66,12 @@
 
   .offcanvas-body {
     padding: 30px 20px;
+
+    .ticket-details-view{
+      img{
+        max-width: 100%;
+      }
+    }
   }
 }
 

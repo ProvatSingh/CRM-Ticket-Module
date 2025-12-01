@@ -5,7 +5,6 @@ $id =  $_GET['id'];
 $users = $conn->query("SELECT * FROM users");
 $ticket = $conn->query("SELECT * FROM tickets WHERE id=$id")->fetch_assoc();
 
-echo var_dump($ticket['status']);
 
 // Security: Only author or assignee can edit
 if ($ticket['created_by'] != $_SESSION['user_id']) {
@@ -18,6 +17,8 @@ $assignedUsers = explode(",", $ticket['assigned_to']);
 ?>
 
 <?php
+$success = "";
+$error = "";
 if (isset($_POST['update'])) {
     $name = $_POST['name'];
     $desc = $_POST['description'];
@@ -44,12 +45,29 @@ if (isset($_POST['update'])) {
 
     if ($conn->query($query)) {
         echo "<script>alert('Updated!');</script>";
+        $success = "Ticket Updated successfully!";
+    } else {
+        $error = "Database Error: " . $conn->error;
     }
 }
 ?>
 
 <div class="main-wrapper">
+  <div class="notification-wpr">
+        <?php if (!empty($success)): ?>
+        <div class="alert alert-success alert-dismissible fade show " role="alert">
+            <?= $success ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <?php endif; ?>
 
+        <?php if (!empty($error)): ?>
+        <div class="alert alert-danger alert-dismissible fade show " role="alert">
+            <?= $error ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <?php endif; ?>
+    </div>
     <section class="create-ticket-sec py-0">
         <div class="container">
             <div class="sec-head">

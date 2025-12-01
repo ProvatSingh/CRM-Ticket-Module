@@ -15,20 +15,6 @@ if($myCrTickets->num_rows > 0){
 };
 // Fetch created tickets end
 
-// assign id convert to assigned names start
-foreach ($tickets as $ticket) { 
-     $assigneIds = explode(",", $ticket["assigned_to"]);  
-    $names = [];
-    foreach ($assigneIds as $id) {
-        $result = $conn->query("SELECT name FROM users WHERE id=$id");
-        if ($result && $result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $names[] = $row["name"];
-        }
-    }
-}
-// assign id convert to assigned names end
-
 // Delete function start
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];
@@ -76,7 +62,17 @@ if (isset($_POST['delete'])) {
                         <td><?= $ticket["status"]; ?></td>
                         <td><?= $_SESSION['user_name']; ?></td>
                         <td><?= $ticket["created_at"]; ?></td>
-                        <td><?php echo implode(", ", $names); ?></td>
+                        <td><?php 
+                              $assigneIds = explode(",", $ticket["assigned_to"]);  
+                                $names = [];
+                                foreach ($assigneIds as $id) {
+                                    $result = $conn->query("SELECT name FROM users WHERE id=$id");
+                                    if ($result && $result->num_rows > 0) {
+                                        $row = $result->fetch_assoc();
+                                        $names[] = $row["name"];
+                                    }
+                                }
+                           	 echo implode(", ", $names); ?></td>
                         <td>
                             <div class="table-action">
                                 <div class="table-action-btn view-ticket" data-id="<?= $ticket['id']; ?>"
@@ -103,9 +99,6 @@ if (isset($_POST['delete'])) {
 
                     </tr>
                     <?php } ?>
-
-
-
                 </tbody>
             </table>
         </div>

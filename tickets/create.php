@@ -3,7 +3,8 @@
 
 <?php 
 $users = $conn->query("SELECT * FROM users");
-
+$success = "";
+$error = "";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,17 +20,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 VALUES ('$ticketName', '$ticketDescription', '$fileName', '$createdBy', '$ticketAssignee')";
 
 
-    if ($conn->query($sql) === TRUE ) {
-        if (empty($_FILES["fileToUpload"]["name"])){
-            echo "Ticket Created Successfully";
-        }elseif(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFilePath)) {
-            echo "Ticket Created Successfully";
+    if ($conn->query($sql) === TRUE) {
+
+        if (!empty($fileName)) {
+
+            if (!move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFilePath)) {
+                $error = "Ticket created but file upload FAILED!";
+            } else {
+                $success = "Ticket created successfully!";
+            }
+
         } else {
-            echo "File upload failed!";
+            $success = "Ticket created successfully!";
         }
-        echo $ticketAssignee;
+
     } else {
-        echo "Database Error: " . $conn->error;
+        $error = "Database Error: " . $conn->error;
     }
 }
 
@@ -37,6 +43,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <div class="main-wrapper">
+<div class="notification-wpr">
+        <?php if (!empty($success)): ?>
+        <div class="alert alert-success alert-dismissible fade show " role="alert">
+            <?= $success ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <?php endif; ?>
+
+        <?php if (!empty($error)): ?>
+        <div class="alert alert-danger alert-dismissible fade show " role="alert">
+            <?= $error ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <?php endif; ?>
+    </div>
 
     <section class="create-ticket-sec py-0">
         <div class="container">

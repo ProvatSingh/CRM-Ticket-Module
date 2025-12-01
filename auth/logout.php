@@ -8,6 +8,6 @@ session_unset();
 session_destroy();
 
 // redirect to login page
-header("Location: /CRM-Ticket-Module/auth/login.php");
+header("Location: https://crm-ticket-module.fwh.is/auth/login.php");
 exit;
 ?>
